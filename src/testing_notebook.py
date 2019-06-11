@@ -26,7 +26,7 @@ pd.options.display.max_columns = 999
 IMG_DIR = "../input/iwildcam-2019-fgvc6/"
 RESIZE_IMG_DIR = "../input/reducing-image-sizes-to-32x32/"
 WEIGHTS_DIR = "../input/densenet-keras/"
-print(os.listdir('../input'))
+# print(os.listdir('../input'))
 # %%
 
 print("csv: {}".format(os.listdir(RAW_INPUT_DIR)))
@@ -43,13 +43,46 @@ Test_df = pd.read_csv(RAW_INPUT_DIR + '/test.csv')
 # Test_df.head(5)
 
 # %%
+# %%time
 
+class Npy_handler():
+#     NPY_PATH default point to the 
+    def __init__(self, NPY_PATH=""):
+#         npy_path point to the npy dir.
+        self.npy_path = NPY_PATH
+        self.x_tr, self.y_tr, self.x_te = self.load_npy()
+
+    def load_npy(self):
+
+        if(npy_exist()):
+            x_tr = np.load(os.path.join(self.npy_path, "X_train.npy"))
+            y_tr = np.load(os.path.join(self.npy_path, "y_train.npy"))
+            x_te = np.load(os.path.join(self.npy_path, "X_test.npy"))
+            return x_tr, y_tr, x_te
+        else:
+            x_tr = np.array(["None"])
+            y_tr = np.array(["None"])
+            x_te = np.array(["None"])
+            return x_tr, y_tr, x_te
+    def npy_exist(self):
+        NPY_LIST = os.listdir(self.npy_path)
+        if("X_test.npy" in NPY_LIST and
+            'X_train.npy' in NPY_LIST and 'y_train.npy' in NPY_LIST):
+            return True
+        else:
+            return False
+    def get_npy(self):
+        return self.x_tr, self.y_tr, self.x_te
+    
+    def save_npy(self, X_TR, Y_TR, X_TE):
+        print("save")
+    
 # def show_plot():
 #     fig, ax = plt.subplots(9, 1, figsize=(180, 20))
 #     ax[index].imshow(img)
 
 
-def Read2process(IMG_PATH=None):
+def Read2preprocess(IMG_PATH=None):
     def resize(img, default_size=32):
         return cv2.resize(img, (32, )*2 ).astype('uint8')
     def normalize(img):
@@ -60,35 +93,55 @@ def Read2process(IMG_PATH=None):
     img = normalize(img)
     return img
 
-def Get_the_data(train_or_not=True):
-    IMG_list = []
+class Img_loader():
+    def __init__(self):
+        
+    def Get_the_data(train_or_not=True):
+        IMG_list = []
 
-    fname = []
-    label = []
-    if train_or_not:
-        LOAD_DIR = os.path.join(IMG_DIR, "train_images")
-        fname = Train_df['file_name'].values
-        label = pd.get_dummies(Train_df['category_id']).values
-    else:
-        LOAD_DIR = os.path.join(IMG_DIR, "test_images")
-        fname = Test_df['file_name'].values
-#     print(LOAD_DIR)
+        fname = []
+        label = []
+    #     Construct an Npy_handler to check the npy file.
+        npy_handler = Npy_handler(RESIZE_IMG_DIR)
 
-#     for f, l in tqdm(zip(fname[:100], label[:100]), desc="Loading and resizing"):
-    for f, l in tqdm(zip(fname[:100], label[:100])):
-        img_path = os.path.join(LOAD_DIR, f)
-        IMG_list.append(Read2process(img_path))
-    if train_or_not:
-#           np.save("x_train.npy", np.stack(IMG_list))
-#           np.save("y_train.npy", label[:100])
-        return np.stack(IMG_list), label[:100]
-    else:
-#           np.save("x_test.npy", np.stack(IMG_list))
-        return np.stack(IMG_list)
+        #     exist and return
+        if npy_handler.npy_exist():
+            print("aa")
+            return npy_handler.get_npy()
 
-im, la = Get_the_data()
-print(im.shape)
-print(la.shape)
+        if train_or_not:
+            LOAD_DIR = os.path.join(INPUT_DIR, "train_images")
+            fname = Train_df['file_name'].values
+            label = pd.get_dummies(Train_df['category_id']).values
+        else:
+            LOAD_DIR = os.path.join(INPUT_DIR, "test_images")
+            fname = Test_df['file_name'].values
+
+        print(LOAD_DIR)
+
+        for f, l in tqdm(zip(fname[:100], label[:100]), desc="Loading and resizing"):
+        for f in tqdm(fname[:100], desc="Loading_preprocess"):
+            img_path = os.path.join(LOAD_DIR, f)
+            IMG_list.append(Read2preprocess(img_path))
+        if train_or_not:
+              Save the img in numpy array
+              np.save("x_train.npy", np.stack(IMG_list))
+              np.save("y_train.npy", label[:100])
+            return np.stack(IMG_list), label[:100]
+        else:
+              Save the img in numpy array
+              np.save("x_test.npy", np.stack(IMG_list))
+            return np.stack(IMG_list)
+        
+class Pre_processer():
+    def __init__(self):
+        
+
+# im, la = Get_the_data()
+# print(im.shape)
+# print(la.shape)
+Get_the_data()
+IMG_list = Img_loader()
 # %% 
 # *Data mining
 
@@ -101,17 +154,15 @@ print(la.shape)
 # ?We will define the transfer learning output.
 # @Set the input_shape = [32, 32, 3]
 # ?Input shape must fit out input dataset.
-model_121 = DenseNet121(weights='imagenet',
-                        include_top=False,
-                        input_shape=(32,32,3))
+model_121 = DenseNet121(weights='imagenet')
 
-base_model = Sequential()
-base_model.add(model_121)
-base_model.add(GlobalAveragePooling2D())
+# base_model = Sequential()
+# base_model.add(model_121)
+# base_model.add(GlobalAveragePooling2D())
 # base_model.add(Dense())
 
 # *check our CNN learning architecture
-# model_121.summary()
+model_121.summary()
 
 
 
