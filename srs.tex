@@ -89,11 +89,10 @@
 
 \chapter{整體說明}
 \section{方向}
-我們挑選的主題是Categorize animals in the wild，一個在kaggle上面舉辦的比賽，利用kaggle提供的資料集來訓練出一個模型，讓我們可以藉由這個模型來為輸入影像分類，模型可以區分22種動物，希望可以藉由訓練出模型來監測觀察不同地區生物生態以及遷移情況，讓研究人員可以更輕易的掌握生態變遷。
+我們挑選的主題是Categorize animals in the wild，一個在kaggle上面舉辦的比賽，利用kaggle提供的資料集來訓練出一個模型，讓我們可以藉由這個模型來為輸入影像分類，希望可以藉由訓練出模型來監測觀察不同地區生物生態以及遷移情況，讓研究人員可以更輕易的掌握生態變遷。
 
 \section{產品功能}
-對於初次運行的終端，系統會從總共196,157張圖片並使用densenet121進行模型的訓練。
-而後將欲辨識的圖片存儲在系統資料夾下，系統圖片辨識
+可以針對輸入的圖像將其分類成23種物種中的一種。若是圖像與這23個物種都不相似，則會將其歸類為其他。
 
 \section{使用者類型和特性}
 \begin{itemize}
@@ -102,44 +101,52 @@
 \end{itemize}
 
 \section{運行環境}
-使用kaggle終端和jupyter notebook
+training使用kaggle核心，因為kaggle提供gpu加速。辨識使用jupyter notebook。環境為windows系統。
 
 \section{設計與實作上困難}
 主要是硬體方面的困難，包含:
 \begin{itemize}
-\item gpu加速問題導致執行時間過長
-\item 內存不足的問題
-\item 基於transferlearning運行densenet的時候，沒辦法套用imagenet的權重
+	\item gpu加速問題導致執行時間過長。
+	\item 內存不足的問題。
+	\item 基於transferlearning運行densenet的時候，沒辦法套用imagenet的權重。
 \end{itemize}
-
-\section{假設性和依賴性}
 
 
 \chapter{外部界面需求}
 \section{使用者界面}
-運行jupyter notebook以獲取辨識結果
+直接運行jupyter notebook以pyplot獲取辨識曲線。
 \section{硬體界面}
 無。
 \section{軟體界面}
 無。
 \chapter{系統特色}
 \section{描述與優先權}
+必須優先解決內存問題，否則model將無法被產生。
 \section{回傳序列}
+Stimulus: 請求解決訓練時系統內存不足的問題。 \\
+Response: 將讀入圖片時將圖片由720*1024縮放成32*32大小。 \\ 
+Stimulus: 請求更換權重，因為imagenet的權重無法被套用在densenet121上。 \\
+Response: 已將權重改為網路上與imagenet相似的權重，在kaggle上也有許多人採用。 \\
 \section{功能需求}
+設計流程
 \begin{center}
 	\begin{tabular}[t]{|l|l|p{10cm}|}
 		\hline
 		ID & 功能名稱 & 描述 \\
 		\hline
-		1 & 輸入圖片分割 & 為了解決訓練時系統內存不足的問題，讀入圖片時將圖片由720*1024縮放成32*32大小。 \\
+		1 & 資料集的讀取 & 為了訓練模型，需要讀取訓練用圖片與驗證的資料集(格式為csv)。 \\
 		\hline
-		2 & 更合適的權重 & imagenet的權重無法被套用在densenet121上，因為densenet有些預設的參數與資料集不符，使用上相似的權重。 \\
+		2 & 前處理 & 主要是對影像resize和normalize，把值量化到[0-1]。 \\
+		\hline
+		3 & 建立模型 & 運用densenet121建構出模型。 \\
+		\hline
+		4 & 模型優化 & 運用optimizer優化loss function使誤差值達到最小。 \\
 		\hline
 	\end{tabular}
 \end{center}
 \chapter{其非功能性需求}
 \section{運行需求}
-需要使用jupyter notebook，環境為windows系統。
+訓練model的時間約為5個小時。辨識時間則視圖片多寡而定。
 
 %\end{CJK}
 \end{document}
