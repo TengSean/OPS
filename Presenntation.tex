@@ -35,6 +35,8 @@
 %\usetheme{JuanLesPins}
 %\usetheme{Luebeck}
 \usetheme{Madrid}
+\usepackage{graphicx}
+\usepackage{textpos}
 %\usetheme{Malmoe}
 %\usetheme{Marburg}
 %\usetheme{Montpellier}
@@ -164,7 +166,7 @@
 \begin{frame}{Methodology}{Output of model}
 	\begin{itemize}
 	\item{
-		Output of model
+		輸出一個權重檔案，model.h5
 	}
 	\end{itemize}
 \end{frame}
@@ -174,7 +176,9 @@
 \begin{frame}{Methodology}{Layers of model}
 	\begin{itemize}
 	\item{
-		Output of model
+		Dense121
+		GlobalAveragePooling2D(池化層)
+		激活函數(將輸出轉為機率)
 	}
 	\end{itemize}
 \end{frame}
@@ -184,7 +188,7 @@
 \begin{frame}{Methodology}{Model save}
 	\begin{itemize}
 	\item{
-		Model save
+		使用ModelCheckpoint函式儲存框架以及權重
 	}
 	\end{itemize}
 \end{frame}
@@ -204,7 +208,8 @@
 \begin{frame}{Methodology}{Loss function}
 	\begin{itemize}
 	\item{
-		Loss function
+		使用categorical crossentropy loss function\\
+		因為我們在最後一層使用softmax激活函數計算機率，通常會搭配categorical crossentropy loss function 使用\\　
 	}
 	\end{itemize}
 \end{frame}
@@ -214,7 +219,8 @@
 \begin{frame}{Methodology}{Optimizer and hyperparameter}
 	\begin{itemize}
 	\item{
-		Optimizer and hyperparameter
+		Optimizer使用adam
+		沒有使用hyperparameter
 	}
 	\end{itemize}
 \end{frame}
@@ -226,7 +232,7 @@
 \begin{frame}{Dataset}{Optimizer and hyperparameter}
 	\begin{itemize}
 	\item{
-		Size of dataset
+		kaggle 競賽提供的資料集43G
 	}
 	\end{itemize}
 \end{frame}v
@@ -236,7 +242,7 @@
 \begin{frame}{Dataset}{Optimizer and hyperparameter}
 	\begin{itemize}
 	\item{
-		kaggle 提供43G資料集
+		kaggle 競賽提供
 		%在一張圖片
 	}
 	\end{itemize}
@@ -247,7 +253,7 @@
 \begin{frame}{Methodology}{Optimizer and hyperparameter}
 	\begin{itemize}
 	\item{
-		訓練樣本數量
+		176543張圖片
 	}
 	\end{itemize}
 \end{frame}
@@ -257,7 +263,7 @@
 \begin{frame}{Dataset}{Optimizer and hyperparameter}
 	\begin{itemize}
 	\item{
-		驗證樣本數量
+		19615圖片
 	}
 	\end{itemize}
 \end{frame}
@@ -267,7 +273,7 @@
 \begin{frame}{Dataset}{Optimizer and hyperparameter}
 	\begin{itemize}
 	\item{
-		測試樣本數量
+		153730圖片
 	}
 	\end{itemize}
 \end{frame}
@@ -280,6 +286,7 @@
 	\begin{itemize}
 	\item{
 		kaggle kernal
+		13G ram
 	}
 	\end{itemize}
 \end{frame}
@@ -289,43 +296,23 @@
 \begin{frame}{Experimental Evaluation}{Epochs of training}
 	\begin{itemize}
 	\item{
-		Epochs of training
+		35個epochs
 	}
 	\end{itemize}
 \end{frame}
 
-\subsection{Qualitative evaluation}
+\subsection{Qualitative and Quantitative evaluation}
 
 \begin{frame}{Experimental Evaluation}{Qualitative evaluationQualitative evaluation}
 	\begin{itemize}
 	\item{
-		Qualitative evaluation
+		%Qualitative evaluation
+		\begin{textblock}{3}(1,-4)
+		\includegraphics[width=10cm]{sorce.png}
+		\end{textblock}
 	}
 	\end{itemize}
 \end{frame}
-
-\subsection{Quantitative evaluation}
-
-\begin{frame}{Experimental Evaluation}{Quantitative evaluation}
-	\begin{itemize}
-	\item{
-		Quantitative evaluation
-	}
-	\end{itemize}
-\end{frame}
-
-\begin{frame}{Experimental Evaluation}{Qualitative evaluationQualitative evaluation}
-	\begin{itemize}
-	\item{
-		Qualitative evaluation
-	}
-	\end{itemize}
-\end{frame}
-
-
-
-
-
 
 \end{CJK}
 \end{document}
