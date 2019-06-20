@@ -17,16 +17,23 @@
 %http://karlwiegers.com
 \documentclass{scrreprt}
 \usepackage{listings}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt
+\setCJKmainfont{標楷體} 
 \usepackage{underscore}
+\usepackage{graphicx}
+\usepackage{titletoc}
 \usepackage[bookmarks=true]{hyperref}
-\usepackage[utf8]{inputenc}
-\usepackage[english]{babel}
-\usepackage{CJKutf8}
-\CJKencfamily{UTF8}{bkai}
+%\usepackage[utf8]{inputenc}
+%\usepackage[english]{babel}
+%\usepackage{CJKutf8}
+%\CJKencfamily{UTF8}{bkai}
 \hypersetup{
     bookmarks=false,    % show bookmarks bar?
     pdftitle={Software Requirement Specification},    % title
-    pdfauthor={Jean-Philippe Eisenbarth},                     % author
+    pdfauthor={施紹唐},                     % author
     pdfsubject={TeX and LaTeX},                        % subject of the document
     pdfkeywords={TeX, LaTeX, graphics, images}, % list of keywords
     colorlinks=true,       % false: boxed links; true: colored links
@@ -43,20 +50,20 @@
 %}
 \usepackage{hyperref}
 \begin{document}
-\begin{CJK}{UTF8}{}
+%\begin{CJK}{UTF8}{}
 \begin{flushright}
-    \rule{16cm}{5pt}\vskip1cm
+    \rule{14cm}{5pt}\vskip1cm
     \begin{bfseries}
         \Huge{SOFTWARE REQUIREMENTS\\ SPECIFICATION}\\
         \vspace{1.8cm}
         for\\
         \vspace{1.8cm}
-        開放平台期末專題-標題\\
+        開放平台期末專題\\
         \vspace{1.8cm}
         \LARGE{Version \myversion approved}\\
-        Prepared by 1041562 吳宗晉\\
-        1041562 黃騰昇\\
-        1041562 施紹唐\\
+		1041562 吳宗晉\\
+        1041562 黃騰陞\\
+        Prepared by 1043310 施紹唐\\
         \vspace{1.8cm}
         第十組\\
         \vspace{1.8cm}
@@ -67,72 +74,72 @@
 \tableofcontents
 
 \chapter{導論}
-
 \section{目的}
-以往學習影像辨識時都以辨識區分人臉為主，因此希望將相關知識套用在動物的種類區分上，為生態保育貢獻心力
+以往學習影像辨識時都以辨識區分人臉為主，因此希望將相關知識套用在動物的種類區分上，為生態保育貢獻一份心力。
 
 \section{目標族群與說明}
-對於以需要以大規模的影像標籤動物的人或組織。
+對於以需要以大規模的影像標籤動物的人或組織。國外已有人開發出相關的app，只要一人將所見的動物拍照並登陸地點，即可協助統計該地區內的物種資料。
 
 \section{專案範疇}
-必要範疇: 該專案需要在kaggle上正確運行訓練出模型，並能在輸入圖片之後辨識之，且準確率達水準之上。
-充要範疇: 
+\begin{itemize}
+\item 必要範疇: 該專案需要在kaggle上正確運行訓練出模型，並能在輸入測試圖片之後辨識分類之，且準確率需達水準之上。
+\item 充要範疇: 擁有基本的人機介面。
+\end{itemize}
+
 
 \chapter{整體說明}
+\section{方向}
 我們挑選的主題是Categorize animals in the wild，一個在kaggle上面舉辦的比賽，利用kaggle提供的資料集來訓練出一個模型，讓我們可以藉由這個模型來為輸入影像分類，模型可以區分22種動物，希望可以藉由訓練出模型來監測觀察不同地區生物生態以及遷移情況，讓研究人員可以更輕易的掌握生態變遷。
 
-\section{方向}
-該系統旨在
-
 \section{產品功能}
-對於初次運行的終端，系統會進行初步訓練，
-而後將欲的圖片存儲在系統資料夾下，系統會對圖片辨識
+對於初次運行的終端，系統會從總共196,157張圖片並使用densenet121進行模型的訓練。
+而後將欲辨識的圖片存儲在系統資料夾下，系統圖片辨識
 
 \section{使用者類型和特性}
-A.野外生態的觀察者
-B.動物保育人員或者相關組織
-
+\begin{itemize}
+\item 野外生態的任意觀察者
+\item 動物保育人員或者相關組織
+\end{itemize}
 
 \section{運行環境}
 使用kaggle終端和jupyter notebook
 
 \section{設計與實作上困難}
-主要是硬體方面的困難，包含
-1.gpu加速問題導致執行時間過長
-2.內存不足的問題
-3.基於transferlearning運行densenet的時候，沒辦法套用imagenet的權重
+主要是硬體方面的困難，包含:
+\begin{itemize}
+\item gpu加速問題導致執行時間過長
+\item 內存不足的問題
+\item 基於transferlearning運行densenet的時候，沒辦法套用imagenet的權重
+\end{itemize}
 
 \section{假設性和依賴性}
 
 
 \chapter{外部界面需求}
-
 \section{使用者界面}
-使用kaggle所提供之終端機介面進行訓練和辨識
+運行jupyter notebook以獲取辨識結果
 \section{硬體界面}
-
+無。
 \section{軟體界面}
-
+無。
 \chapter{系統特色}
 \section{描述與優先權}
 \section{回傳序列}
 \section{功能需求}
-%\begin{center}
-%\begin{tabular}{|l|l|l|}
-%	\hline
-%	ID & 功能名稱 & 描述 
-%	\hline
-%\end{tabular}
-%\end{center}
-
-\chapter{其他非功能性需求}
-
+\begin{center}
+	\begin{tabular}[t]{|l|l|p{10cm}|}
+		\hline
+		ID & 功能名稱 & 描述 \\
+		\hline
+		1 & 輸入圖片分割 & 為了解決訓練時系統內存不足的問題，讀入圖片時將圖片由720*1024縮放成32*32大小。 \\
+		\hline
+		2 & 更合適的權重 & imagenet的權重無法被套用在densenet121上，因為densenet有些預設的參數與資料集不符，使用上相似的權重。 \\
+		\hline
+	\end{tabular}
+\end{center}
+\chapter{其非功能性需求}
 \section{運行需求}
-需要使用jupyter notebook
-\section{安全性需求}
+需要使用jupyter notebook，環境為windows系統。
 
-\section{隱私性需求}
-
-
-\end{CJK}
+%\end{CJK}
 \end{document}
