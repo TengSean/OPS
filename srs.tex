@@ -17,23 +17,16 @@
 %http://karlwiegers.com
 \documentclass{scrreprt}
 \usepackage{listings}
-\usepackage{fontspec}
-\usepackage{xeCJK}
-\XeTeXlinebreaklocale "zh"
-\XeTeXlinebreakskip = 0pt plus 1pt
-\setCJKmainfont{標楷體} 
 \usepackage{underscore}
-\usepackage{graphicx}
-\usepackage{titletoc}
 \usepackage[bookmarks=true]{hyperref}
-%\usepackage[utf8]{inputenc}
-%\usepackage[english]{babel}
-%\usepackage{CJKutf8}
-%\CJKencfamily{UTF8}{bkai}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{CJKutf8}
+\CJKencfamily{UTF8}{bkai}
 \hypersetup{
     bookmarks=false,    % show bookmarks bar?
     pdftitle={Software Requirement Specification},    % title
-    pdfauthor={施紹唐},                     % author
+    pdfauthor={Jean-Philippe Eisenbarth},                     % author
     pdfsubject={TeX and LaTeX},                        % subject of the document
     pdfkeywords={TeX, LaTeX, graphics, images}, % list of keywords
     colorlinks=true,       % false: boxed links; true: colored links
@@ -50,20 +43,20 @@
 %}
 \usepackage{hyperref}
 \begin{document}
-%\begin{CJK}{UTF8}{}
+\begin{CJK}{UTF8}{}
 \begin{flushright}
-    \rule{14cm}{5pt}\vskip1cm
+    \rule{16cm}{5pt}\vskip1cm
     \begin{bfseries}
         \Huge{SOFTWARE REQUIREMENTS\\ SPECIFICATION}\\
         \vspace{1.8cm}
         for\\
         \vspace{1.8cm}
-        開放平台期末專題\\
+        開放平台期末專題-SRS\\
         \vspace{1.8cm}
         \LARGE{Version \myversion approved}\\
-		1041562 吳宗晉\\
-        1041562 黃騰陞\\
-        Prepared by 1043310 施紹唐\\
+        Prepared by 1041562 吳宗晉\\
+        1041562 黃騰昇\\
+        1041562 施紹唐\\
         \vspace{1.8cm}
         第十組\\
         \vspace{1.8cm}
@@ -73,80 +66,195 @@
 
 \tableofcontents
 
+
+\chapter*{Revision History}
+
+\begin{center}
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+	    Name & Date & Reason For Changes & Version\\
+        \hline
+	    21 & 22 & 23 & 24\\
+        \hline
+	    31 & 32 & 33 & 34\\
+        \hline
+    \end{tabular}
+\end{center}
+
 \chapter{導論}
+
 \section{目的}
-以往學習影像辨識時都以辨識區分人臉為主，因此希望將相關知識套用在動物的種類區分上，為生態保育貢獻一份心力。
 
-\section{目標族群與說明}
-對於以需要以大規模的影像標籤動物的人或組織。國外已有人開發出相關的app，只要一人將所見的動物拍照並登陸地點，即可協助統計該地區內的物種資料。
 
-\section{專案範疇}
-\begin{itemize}
-\item 必要範疇: 該專案需要在kaggle上正確運行訓練出模型，並能在輸入測試圖片之後辨識分類之，且準確率需達水準之上。
-\item 充要範疇: 擁有基本的人機介面。
-\end{itemize}
+\section{適用對象與說明}
+我們挑選的主題是Categorize animals in the wild，一個在kaggle上面舉辦的比賽，利用kaggle提供的資料集來訓練出一個模型，讓我們可以藉由這個模型來為輸入影像分類，模型可以區分22種動物，希望可以藉由訓練出模型來監測觀察不同地區生物生態以及遷移情況，讓研究人員可以更輕易的掌握生態變遷。
+
+\section{計畫範圍}
 
 
 \chapter{整體說明}
-\section{方向}
-我們挑選的主題是Categorize animals in the wild，一個在kaggle上面舉辦的比賽，利用kaggle提供的資料集來訓練出一個模型，讓我們可以藉由這個模型來為輸入影像分類，希望可以藉由訓練出模型來監測觀察不同地區生物生態以及遷移情況，讓研究人員可以更輕易的掌握生態變遷。
-
-\section{產品功能}
-可以針對輸入的圖像將其分類成23種物種中的一種。若是圖像與這23個物種都不相似，則會將其歸類為其他。
-
+\section{作品方向}
+\section{作品功能}
 \section{使用者類型和特性}
-\begin{itemize}
-\item 野外生態的任意觀察者
-\item 動物保育人員或者相關組織
-\end{itemize}
-
 \section{運行環境}
-training使用kaggle核心，因為kaggle提供gpu加速。辨識使用jupyter notebook。環境為windows系統。
-
 \section{設計與實作上困難}
-主要是硬體方面的困難，包含:
-\begin{itemize}
-	\item gpu加速問題導致執行時間過長。
-	\item 內存不足的問題。
-	\item 基於transferlearning運行densenet的時候，沒辦法套用imagenet的權重。
-\end{itemize}
-
+\section{假設性和依賴性}
 
 \chapter{外部界面需求}
 \section{使用者界面}
-直接運行jupyter notebook以pyplot獲取辨識曲線。
 \section{硬體界面}
-無。
 \section{軟體界面}
-無。
+
 \chapter{系統特色}
 \section{描述與優先權}
-必須優先解決內存問題，否則model將無法被產生。
 \section{回傳序列}
-Stimulus: 請求解決訓練時系統內存不足的問題。 \\
-Response: 將讀入圖片時將圖片由720*1024縮放成32*32大小。 \\ 
-Stimulus: 請求更換權重，因為imagenet的權重無法被套用在densenet121上。 \\
-Response: 已將權重改為網路上與imagenet相似的權重，在kaggle上也有許多人採用。 \\
 \section{功能需求}
-設計流程
-\begin{center}
-	\begin{tabular}[t]{|l|l|p{10cm}|}
-		\hline
-		ID & 功能名稱 & 描述 \\
-		\hline
-		1 & 資料集的讀取 & 為了訓練模型，需要讀取訓練用圖片與驗證的資料集(格式為csv)。 \\
-		\hline
-		2 & 前處理 & 主要是對影像resize和normalize，把值量化到[0-1]。 \\
-		\hline
-		3 & 建立模型 & 運用densenet121建構出模型。 \\
-		\hline
-		4 & 模型優化 & 運用optimizer優化loss function使誤差值達到最小。 \\
-		\hline
-	\end{tabular}
-\end{center}
-\chapter{其非功能性需求}
-\section{運行需求}
-訓練model的時間約為5個小時。辨識時間則視圖片多寡而定。
 
-%\end{CJK}
+\chapter{其他非功能性需求}
+\section{運行需求}
+\section{安全性需求}
+\section{隱私性需求}
+
+
+\section{模型的輸入資料}
+%dataset csv
+
+\section{模型的輸出資料}
+
+
+\section{模型架構}
+
+
+\section{如何取出模型}
+
+
+\section{Loss function選擇與採用}
+
+
+\section{optimizer選擇與採用}
+
+
+
+
+
+
+\chapter{Dataset}
+
+\section{資料集大小}
+
+
+\section{資料集來源}
+
+
+\section{訓練樣本數量}
+
+
+\section{驗證樣本數量}
+
+
+\section{測試樣本數量}
+
+
+\chapter{Experimental Evaluation}
+$<$This template illustrates organizing the functional requirements for the 
+product by system features, the major services provided by the product. You may 
+prefer to organize this section by use case, mode of operation, user class, 
+object class, functional hierarchy, or combinations of these, whatever makes the 
+most logical sense for your product.$>$
+
+\section{硬體環境}
+$<$Don’t really say “System Feature 1.” State the feature name in just a few 
+words.$>$
+
+\section{訓練次數}
+$<$Provide a short description of the feature and indicate whether it is of 
+High, Medium, or Low priority. You could also include specific priority 
+component ratings, such as benefit, penalty, cost, and risk (each rated on a 
+relative scale from a low of 1 to a high of 9).$>$
+
+\subsection{}
+$<$List the sequences of user actions and system responses that stimulate the 
+behavior defined for this feature. These will correspond to the dialog elements 
+associated with use cases.$>$
+
+\section{Functional Requirements}
+$<$Itemize the detailed functional requirements associated with this feature.  
+These are the software capabilities that must be present in order for the user 
+to carry out the services provided by the feature, or to execute the use case.  
+Include how the product should respond to anticipated error conditions or 
+invalid inputs. Requirements should be concise, complete, unambiguous, 
+verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary 
+information is not yet available.$>$
+
+$<$Each requirement should be uniquely identified with a sequence number or a 
+meaningful tag of some kind.$>$
+
+REQ-1:	REQ-2:
+
+\section{System Feature 2 (and so on)}
+
+
+\chapter{Demo}
+
+\section{Performance Requirements}
+$<$If there are performance requirements for the product under various 
+circumstances, state them here and explain their rationale, to help the 
+developers understand the intent and make suitable design choices. Specify the 
+timing relationships for real time systems. Make such requirements as specific 
+as possible. You may need to state performance requirements for individual 
+functional requirements or features.$>$
+
+\section{Safety Requirements}
+$<$Specify those requirements that are concerned with possible loss, damage, or 
+harm that could result from the use of the product. Define any safeguards or 
+actions that must be taken, as well as actions that must be prevented. Refer to 
+any external policies or regulations that state safety issues that affect the 
+product’s design or use. Define any safety certifications that must be 
+satisfied.$>$
+
+\section{Security Requirements}
+$<$Specify any requirements regarding security or privacy issues surrounding use 
+of the product or protection of the data used or created by the product. Define 
+any user identity authentication requirements. Refer to any external policies or 
+regulations containing security issues that affect the product. Define any 
+security or privacy certifications that must be satisfied.$>$
+
+\section{Software Quality Attributes}
+$<$Specify any additional quality characteristics for the product that will be 
+important to either the customers or the developers. Some to consider are: 
+adaptability, availability, correctness, flexibility, interoperability, 
+maintainability, portability, reliability, reusability, robustness, testability, 
+and usability. Write these to be specific, quantitative, and verifiable when 
+possible. At the least, clarify the relative preferences for various attributes, 
+such as ease of use over ease of learning.$>$
+
+\section{Business Rules}
+$<$List any operating principles about the product, such as which individuals or 
+roles can perform which functions under specific circumstances. These are not 
+functional requirements in themselves, but they may imply certain functional 
+requirements to enforce the rules.$>$
+
+
+\chapter{Other Requirements}
+$<$Define any other requirements not covered elsewhere in the SRS. This might 
+include database requirements, internationalization requirements, legal 
+requirements, reuse objectives for the project, and so on. Add any new sections 
+that are pertinent to the project.$>$
+
+\section{Appendix A: Glossary}
+%see https://en.wikibooks.org/wiki/LaTeX/Glossary
+$<$Define all the terms necessary to properly interpret the SRS, including 
+acronyms and abbreviations. You may wish to build a separate glossary that spans 
+multiple projects or the entire organization, and just include terms specific to 
+a single project in each SRS.$>$
+
+\section{Appendix B: Analysis Models}
+$<$Optionally, include any pertinent analysis models, such as data flow 
+diagrams, class diagrams, state-transition diagrams, or entity-relationship 
+diagrams.$>$
+
+\section{Appendix C: To Be Determined List}
+$<$Collect a numbered list of the TBD (to be determined) references that remain 
+in the SRS so they can be tracked to closure.$>$
+\end{CJK}
 \end{document}
