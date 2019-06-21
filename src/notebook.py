@@ -4,15 +4,24 @@ from keras.applications.densenet import DenseNet121
 from keras.layers import Dense, Dropout, Activation, Flatten, GlobalAveragePooling2D
 from keras.layers import Conv2D, MaxPooling2D
 from keras.models import Sequential
+from keras.callbacks import Callback, ModelCheckpoint
+import keras
+from sklearn.model_selection import StratifiedKFold
 
-from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, f1_score, precision_score, recall_score
+
+
 
 from tqdm import tqdm_notebook as tqdm
+
+
 import os
 
 # import warning
 import datetime
 import time
+
+import json
 
 import cv2
 import numpy as np
@@ -21,39 +30,34 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn
 pd.options.display.max_columns = 999
+import tensorflow as tf
 
-
-IMG_DIR = "../input/iwildcam-2019-fgvc6/"
-RESIZE_IMG_DIR = "../input/reducing-image-sizes-to-32x32/"
+INPUT_DIR = "../input/iwildcam-2019-fgvc6/"
+# RESIZE_IMG_DIR = "../input/reducing-image-sizes-to-32x32/"
 WEIGHTS_DIR = "../input/densenet-keras/"
-# print(os.listdir('../input'))
-# %%
+# print(os.listdir('../input/reducingimagesizesto32x32/reducing-image-sizes-to-32x32/reducing-image-sizes-to-32x32'))
+# print(os.listdir("../input/"))
+print(os.listdir("../input/resize/resize/resize"))
 
-print("csv: {}".format(os.listdir(RAW_INPUT_DIR)))
-print("Resize: {}".format(os.listdir(RESIZE_INPUT_DIR)))
-print("Model: {}".format(os.listdir((MODEL_WEIGHTS_DIR))))
 # %%
-# *Data loading 
-Train_df = pd.read_csv(RAW_INPUT_DIR + '/train.csv')
-Test_df = pd.read_csv(RAW_INPUT_DIR + '/test.csv')
+# *Data csv loading 
+Train_df = pd.read_csv(os.path.join(INPUT_DIR, 'train.csv'))
+Test_df = pd.read_csv(os.path.join(INPUT_DIR, 'test.csv'))
 
 print("Train dataframe shape: {}".format(Train_df.shape))
-# Train_df.head(5)
-print("Test dataframe shape: {}".format(Test_df.shape))
+# Train_df.head(50)
+# print("Test dataframe shape: {}".format(Test_df.shape))
 # Test_df.head(5)
 
 # %%
 
-
-
-#* Loading img and Preprocessing
-#* Numpy aray intersection.
 class Npy_handler():
 #     NPY_PATH default point to the 
     def __init__(self):
 #         print("Npy_handler")
 #         npy_path point to the npy dir.
-        self.npy_path = "../input/reducing-image-sizes-to-32x32/"
+#         self.npy_path = "../input/reducing-image-sizes-to-32x32/"
+        self.npy_path = "../input/resize/resize/resize"
         self.x_tr_npy, self.y_tr_npy, self.x_te_npy = self.load_npy()
         
 #     def get_dir(self):
@@ -61,9 +65,12 @@ class Npy_handler():
     def load_npy(self):
 #         print("Npy_handler.load_npy")
         if(self.npy_exist()):
-            x_tr_npy = np.load(os.path.join(self.npy_path, "X_train.npy"))
+#             x_tr_npy = np.load(os.path.join(self.npy_path, "X_train.npy"))
+#             y_tr_npy = np.load(os.path.join(self.npy_path, "y_train.npy"))
+#             x_te_npy = np.load(os.path.join(self.npy_path, "X_test.npy"))
+            x_tr_npy = np.load(os.path.join(self.npy_path, "x_train.npy"))
             y_tr_npy = np.load(os.path.join(self.npy_path, "y_train.npy"))
-            x_te_npy = np.load(os.path.join(self.npy_path, "X_test.npy"))
+            x_te_npy = np.load(os.path.join(self.npy_path, "x_test.npy"))
             return x_tr_npy, y_tr_npy, x_te_npy
         else:
             x_tr_npy = np.array(["None"])
@@ -74,8 +81,11 @@ class Npy_handler():
     def npy_exist(self):
 #         print("Npy_handler.npy_exist")
         NPY_LIST = os.listdir(self.npy_path)
-        if("X_test.npy" in NPY_LIST and
-            'X_train.npy' in NPY_LIST and 'y_train.npy' in NPY_LIST):
+#         if("X_test.npy" in NPY_LIST and
+#             'X_train.npy' in NPY_LIST and 'y_train.npy' in NPY_LIST):
+#             return True
+        if("x_test.npy" in NPY_LIST and
+            'x_train.npy' in NPY_LIST and 'y_train.npy' in NPY_LIST):
             return True
         else:
             return False
@@ -99,13 +109,64 @@ class Npy_handler():
         np.save("x_test.npy", x_te)
 
 
-#! Warning: If you have time.
+
 # def show_plot():
 #     fig, ax = plt.subplots(9, 1, figsize=(180, 20))
 #     ax[index].imshow(img)
 
 # %%
-#* Loading Img.jpg
+class Preprocess_interface():
+    def __init__(self):
+        self.a=1
+#         print("Preprocess_interface")
+    # preprocess_list = [LOAD_DIR, fname, label(train) ]    
+    def preprocess(self, preprocess_list=[], train_or_not=True ):
+#         print("[TRACE]: Preprocess_interface.preprocess")
+        
+        IMG_list = []
+        LOAD_DIR = preprocess_list[0]
+        fname = preprocess_list[1]
+        
+        # Set the first 100th data to testing.
+        for f in tqdm(fname, desc="Loading_preprocess"):
+            img_path = os.path.join(LOAD_DIR, f)
+            IMG_list.append(self.Read2preprocess(img_path, default_size = 32, Dimention=None))
+        
+        if train_or_not:
+            label = preprocess_list[2]
+            #  Here return x_tr, y_tr
+            return np.stack(IMG_list), label
+        else:
+            #  Here return x_te
+            return np.stack(IMG_list)
+        
+    def Read2preprocess(self, IMG_PATH="", default_size = 32, Dimention=None):
+#         print("[TRACE]: Preprocess_interface.Read2preprocess")
+
+        def resize(img, default_size=32, Dim=None):
+            if Dimention == None:
+                print("[TRACE]: Preprocess_interface.Read2preprocess.resize(DEFAULT)")
+                print("[INFO]: Input dim: {}".format((default_size, default_size)))
+                return cv2.resize(img, (default_size, )*2 ).astype('uint8')
+            else:
+                print("[TRACE]: Preprocess_interface.Read2preprocess.resize(DIMENTION)")
+                print("[INFO]: Input dim: {}".format(Dim))
+                return cv2.resize(img, Dim ).astype('uint8')
+                
+        def normalize(img):
+#             print("Preprocess_interface.Read2preprocess.normalize")
+            img = img.astype('float32')
+            return img / 255
+        img = cv2.imread(str(IMG_PATH))
+        img = resize(img, default_size, Dimention)
+
+        img = normalize(img)
+        return img
+
+# %%
+%%time
+
+
 class Img_Loader():
     #Construct arg1: TrainDataFrame, arg2: TestDataFrame
     def __init__(self, train_df, test_df):
@@ -134,7 +195,7 @@ class Img_Loader():
             #Throw [LOAD_DIR, fname, label] to preprocess_interface.
             x_tr, y_tr = self.preprocess_interface.preprocess(train2preprocess,
                                                               train_or_not = True)
-
+            
 #             self.npy_handler.save_npy(x_tr, y_tr, x_te)
             
             return x_tr, y_tr, x_te    
@@ -220,81 +281,55 @@ class Img_Loader():
         fi = np.array(Train_df['file_name'][:,None])
         la = np.array(Train_df['category_id'][:,None])
         return sfold.split(fi, la)
-        
-        
-        
-# %%
-class Preprocess_interface():
-    def __init__(self):
-        self.a=1
-#         print("Preprocess_interface")
-    # preprocess_list = [LOAD_DIR, fname, label(train) ]    
-    def preprocess(self, preprocess_list=[], train_or_not=True ):
-#         print("[TRACE]: Preprocess_interface.preprocess")
-        
-        IMG_list = []
-        LOAD_DIR = preprocess_list[0]
-        fname = preprocess_list[1]
-        
-        # Set the first 100th data to testing.
-        for f in tqdm(fname, desc="Loading_preprocess"):
-            img_path = os.path.join(LOAD_DIR, f)
-            IMG_list.append(self.Read2preprocess(img_path, default_size = 32, Dimention=None))
-        
-        if train_or_not:
-            label = preprocess_list[2]
-            #  Here return x_tr, y_tr
-            return np.stack(IMG_list), label
-        else:
-            #  Here return x_te
-            return np.stack(IMG_list)
-        
-    def Read2preprocess(self, IMG_PATH="", default_size = 32, Dimention=None):
-#         print("[TRACE]: Preprocess_interface.Read2preprocess")
-
-        def resize(img, default_size=32, Dim=None):
-            if Dimention == None:
-#                 print("[TRACE]: Preprocess_interface.Read2preprocess.resize(DEFAULT)")
-                return cv2.resize(img, (default_size, )*2 ).astype('uint8')
-            else:
-#                 print("[TRACE]: Preprocess_interface.Read2preprocess.resize(DIMENTION)")
-                return cv2.resize(img, Dim ).astype('uint8')
-                
-        def normalize(img):
-#             print("Preprocess_interface.Read2preprocess.normalize")
-            img = img.astype('float32')
-            return img / 255
-        img = cv2.imread(str(IMG_PATH))
-        img = resize(img, default_size, Dimention)
-
-        img = normalize(img)
-        return img
-
 
 # IMG_loader = Img_Loader( Train_df, Test_df)
 # x_train, y_train, x_test = IMG_loader.Get_the_data()
 
-# %% 
-# *Data mining
 
+# fold_list = IMG_loader.validation_sperator(5)
+
+# for tr_index, te_index in fold_list:
+#     gen = IMG_loader.Load_batch('Train', Train_df['file_name'][tr_index],
+#                           Train_df['category_id'][tr_index], batch_size=250)
+#     gen = IMG_loader.Load_batch('Test', Test_df['file_name'][te_index],
+#                         batch_size=250)
+#     while True:
+#         print('cc')
+#          get_next = next(gen)
+#         print(get_next[0].shape)
+#         print(get_next[1].shape)
+#     print(label.shape)
+
+# %%
 
 # %%
 # *Model construction
 # *Using denseNet121
 
-# @Set the include_top = False.
-# ?We will define the transfer learning output.
-# @Set the input_shape = [32, 32, 3]
-# ?Input shape must fit out input dataset.
-# model_121 = DenseNet121(weights='imagenet')
+# # os.listdir(WEIGHTS_DIR)
+# WEIGHTS_PATH = os.path.join(WEIGHTS_DIR, 'DenseNet-BC-121-32-no-top.h5')
+# # # WEIGHTS_PATH = os.path.join(WEIGHTS_DIR, 'DenseNet-BC-121-32.h5')
+# # # WEIGHTS_PATH
+
+# # # @Set the include_top = False.
+# # # ?We will define the transfer learning output.
+# # # @Set the input_shape = [32, 32, 3]
+# # # ?Input shape must fit out input dataset.
+# model_121 = DenseNet121(weights= WEIGHTS_PATH,
+#                         include_top=False,
+#                         input_shape=(32,32,3))
 
 # base_model = Sequential()
 # base_model.add(model_121)
 # base_model.add(GlobalAveragePooling2D())
-# base_model.add(Dense())
+# # # Testing for output 14 class.
+# # # But here we got a question.
+# # # There are 23 class(1 empty), if we set the output dimention is 24 what will happen?
+# base_model.add(Dense(len(total_category), activation="softmax"))
+# # # check our CNN learning architecture
+# base_model.summary()
 
-# *check our CNN learning architecture
-# model_121.summary()
+
 
 class Transfer_learn():
     def __init__(self, ):
@@ -308,8 +343,6 @@ class Transfer_learn():
         
         self.NUM_EPOCHS = 35
         self.BATCH_SIZE = 64
-        
-#         self.model = self.Build_model()
         self.IMG_loader = Img_Loader( Train_df, Test_df)
     # *activation = Soft_max, for classification in last layer(output layer).
     # *loss = catagory_corssentropy
@@ -351,26 +384,29 @@ class Transfer_learn():
             
             
     def Train_model_batch(self):
-#         # ?Do something here...
-#         # Get the validation set
-#         # for loop start to train
+        # ?Do something here...
+        # Get the validation set
+        # for loop start to train
 
-        self.Build_model(in_shape=(256,256,3))
+#         self.Build_model(in_shape=(256,256,3))
 
 
         fold_list = self.IMG_loader.validation_sperator(3)
         for round, (tr_index, val_index) in enumerate(fold_list):
             print("Fold :{}".format(round + 1))
+            print("train: {}, test: {}".format(len(tr_index), len(val_index)))
+
             x_train = Train_df['file_name'][tr_index]
             y_train = Train_df['category_id'][tr_index]
-            
+            print("train: {}".format(x_train))            
             x_val = Train_df['file_name'][val_index]
             y_val = Train_df['category_id'][val_index]
-            
+            print("test: {}".format(x_val.shape))
             Train_gen = self.IMG_loader.Load_batch('Train', x_train, y_train, batch_size=self.BATCH_SIZE)
             Val_gen = self.IMG_loader.Load_batch('Train', x_val, y_val, batch_size=self.BATCH_SIZE)
+            model_name = "model_fold-"+ str(round + 1) + ".h5"
             
-            checkpoint = ModelCheckpoint('model_fold-{}.h5'.format(round+1), 
+            checkpoint = ModelCheckpoint(model_name, 
                                 monitor='val_acc', 
                                 verbose=1, 
                                 save_best_only=True, 
@@ -386,7 +422,7 @@ class Transfer_learn():
                                             validation_steps=len(val_index) // self.BATCH_SIZE,
                                             epochs=self.NUM_EPOCHS)
             self.result.append(history)
-            
+        return self.result
     def Train_model_all(self):
         
         self.Build_model(in_shape=(32, 32, 3))
@@ -407,11 +443,18 @@ class Transfer_learn():
             batch_size=self.BATCH_SIZE,
             epochs=self.NUM_EPOCHS,
             callbacks=[checkpoint],
-            validation_split=0.1
+            validation_split=0.33
         )
-        
-        
-        
+        return self.result
+#     def demo_predict(self):
+    def write_json(self):
+        history_df = self.result.history
+        with open('history.json', 'w') as f:
+            json.dump(history_df, f)
+
+#     def show_img(self):
+
+
 #     # *Sean prefer to 5-Fold cross-validation
 #     def Validataion(self):
 #         # ?Do something here...
@@ -424,13 +467,99 @@ class Transfer_learn():
 
 test_transfer = Transfer_learn()
 # test_transfer.Build_model()
-test_transfer.Train_model_all()
-
-#%%
-# !Testing VGG16
-# from keras.applications.vgg16 import VGG16
-# model_vgg16 = VGG16(weights='imagenet')
-# model_vgg16.summary()
+history = test_transfer.Train_model_batch()
+# history = test_transfer.Train_model_all()
 
 # %%
-# *Data visualization
+class Img_DEMO():
+    def __init__(self, Train_df, Test_df):
+        
+        self.INPUT_DIR = "../input/iwildcam-2019-fgvc6/"
+        tra_file_path = Train_df['file_name'][:16]
+        te_file_path = Test_df['file_name'][:16]
+        self.Tra_labels  = Train_df['category_id'][:16]
+        self.Tra_FILE_PATH = tra_file_path.apply(lambda x: os.path.join(os.path.join(self.INPUT_DIR
+                                                                    ,"train_images"), x))
+
+        self.Te_FILE_PATH = te_file_path.apply(lambda x: os.path.join(os.path.join(self.INPUT_DIR
+                                                                    ,"test_images"), x))
+
+    def show_Img(self):
+        
+        def resize(img):
+            return cv2.resize(img, (32, )*2 ).astype('uint8')
+        def normalize(img):
+            img = img.astype('float32')
+            return img / 255
+        Row = 4
+        Col = 4
+        file_name=["raw_img.jpg", "resize_img.jpg", "nor_img.jpg"]
+        for round in range(3):
+            
+            plt.figure()
+            fig, ax = plt.subplots(4, 4, figsize=(Row* 5,Col*5))
+            for row in range(Row):
+                for col in range(Col):
+                    if round == 0:
+                        ax[row, col].imshow(cv2.imread(self.Tra_FILE_PATH[row * 4 + col]))
+                    elif round == 1:
+                        ax[row, col].imshow(resize(cv2.imread(self.Tra_FILE_PATH[row * 4 + col])))
+                    elif round == 2:
+                        img_tmp = resize(cv2.imread(self.Tra_FILE_PATH[row * 4 + col]))
+                        ax[row, col].imshow(normalize(img_tmp))
+        #         plt.imshow(img)
+            # plt.imshow(x_train_img[0])
+            plt.savefig(file_name[round])
+            plt.show()
+        
+class predict_DEMO():
+    def __init__(self):
+        self.model = tf.contrib.keras.models.load_model("../input/output/model.h5")
+#         self.model.summary()
+        self.preprocess_interface = Preprocess_interface()
+        self.Species_dict = {0: ['other'], 1: ['deer'], 2: ['moose'], 3: ['squirrel'], 4: ['rodent'],5: ['small_mammal'],
+                6: ['elk'],7: ['pronghorn_antelope'],8: ['rabbit'],9: ['bighorn_sheep'],10: ['fox'],
+                11: ['coyote'],12: ['black_bear'],13: ['raccoon'],14: ['skunk'],15: ['wolf'],16: ['bobcat'],
+                17: ['cat'],18: ['dog'],19: ['opossum'],20: ['bison'],21: ['mountain_goat'], 22: ['mountain_lion']}
+        
+        self.Species_df = pd.DataFrame(self.Species_dict)
+        self.history = self.read_resultJson()
+        
+    def read_resultJson(self):
+        with open('../input/output/history.json' , 'r') as reader:
+            history = json.loads(reader.read())
+        return history
+    
+    def predict(self, path):
+        result_img = self.preprocess_interface.Read2preprocess(path, 32)
+#         print(result_img.shape)
+        y_test = self.model.predict(result_img[None,:])
+        y_test = y_test.argmax(axis=1)
+        print("Predict result: {}".format(self.Species_df[y_test]))
+        
+    def show_category(self):
+        print(self.Species_df)
+        
+    def show_resultJson(self):
+        h_df = pd.DataFrame(self.history)
+        epochs = range(len(h_df['loss']))
+        plt.figure()
+        fig, ax = plt.subplots(1,2,figsize=(18,4))
+        ax[0].plot(epochs, h_df['loss'], label='Training loss')
+        ax[0].plot(epochs, h_df['val_loss'], label='Validation loss')
+        ax[0].set_title('Training and validation loss')
+        ax[0].legend()
+        ax[1].plot(epochs, h_df['acc'],label='Training accuracy')
+        ax[1].plot(epochs, h_df['val_acc'], label='Validation accuracy')
+        ax[1].set_title('Training and validation accuracy')
+        ax[1].legend()
+        plt.show()
+        
+
+img_demo= Img_DEMO(Train_df, Test_df)
+img_demo.show_Img()
+
+# predict_demo = predict_DEMO()
+predict_demo.predict("../input/test-folder/test1.jpg")
+predict_demo.show_category()
+predict_demo.show_resultJson()
