@@ -24,84 +24,90 @@
 \headcommand {\beamer@framepages {7}{7}}
 \headcommand {\slideentry {2}{1}{2}{8/8}{Input of model}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\beamer@subsectionentry {0}{2}{2}{9}{Output of model}}\headcommand {\beamer@subsectionpages {7}{8}}
-\headcommand {\slideentry {2}{2}{1}{9/9}{Output of model}{0}}
+\headcommand {\slideentry {2}{1}{3}{9/9}{Input of model}{0}}
 \headcommand {\beamer@framepages {9}{9}}
-\headcommand {\slideentry {2}{2}{2}{10/10}{Output of model}{0}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{10}{Output of model}}\headcommand {\beamer@subsectionpages {7}{9}}
+\headcommand {\slideentry {2}{2}{1}{10/10}{Output of model}{0}}
 \headcommand {\beamer@framepages {10}{10}}
-\headcommand {\beamer@subsectionentry {0}{2}{3}{11}{Layers of model}}\headcommand {\beamer@subsectionpages {9}{10}}
-\headcommand {\slideentry {2}{3}{1}{11/11}{Layers of model}{0}}
+\headcommand {\slideentry {2}{2}{2}{11/11}{Output of model}{0}}
 \headcommand {\beamer@framepages {11}{11}}
-\headcommand {\slideentry {2}{3}{2}{12/12}{Layers of model}{0}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{12}{Layers of model}}\headcommand {\beamer@subsectionpages {10}{11}}
+\headcommand {\slideentry {2}{3}{1}{12/12}{Layers of model}{0}}
 \headcommand {\beamer@framepages {12}{12}}
-\headcommand {\beamer@subsectionentry {0}{2}{4}{13}{Model save}}\headcommand {\beamer@subsectionpages {11}{12}}
-\headcommand {\slideentry {2}{4}{1}{13/13}{Model save}{0}}
+\headcommand {\slideentry {2}{3}{2}{13/13}{Layers of model}{0}}
 \headcommand {\beamer@framepages {13}{13}}
-\headcommand {\slideentry {2}{4}{2}{14/14}{Model save}{0}}
+\headcommand {\beamer@subsectionentry {0}{2}{4}{14}{Model save}}\headcommand {\beamer@subsectionpages {12}{13}}
+\headcommand {\slideentry {2}{4}{1}{14/14}{Model save}{0}}
 \headcommand {\beamer@framepages {14}{14}}
-\headcommand {\beamer@subsectionentry {0}{2}{5}{15}{File size of model}}\headcommand {\beamer@subsectionpages {13}{14}}
-\headcommand {\slideentry {2}{5}{1}{15/15}{File size of model}{0}}
+\headcommand {\slideentry {2}{4}{2}{15/15}{Model save}{0}}
 \headcommand {\beamer@framepages {15}{15}}
-\headcommand {\slideentry {2}{5}{2}{16/16}{File size of model}{0}}
+\headcommand {\beamer@subsectionentry {0}{2}{5}{16}{File size of model}}\headcommand {\beamer@subsectionpages {14}{15}}
+\headcommand {\slideentry {2}{5}{1}{16/16}{File size of model}{0}}
 \headcommand {\beamer@framepages {16}{16}}
-\headcommand {\beamer@subsectionentry {0}{2}{6}{17}{Loss function}}\headcommand {\beamer@subsectionpages {15}{16}}
-\headcommand {\slideentry {2}{6}{1}{17/17}{Loss function}{0}}
+\headcommand {\slideentry {2}{5}{2}{17/17}{File size of model}{0}}
 \headcommand {\beamer@framepages {17}{17}}
-\headcommand {\slideentry {2}{6}{2}{18/18}{Loss function}{0}}
+\headcommand {\beamer@subsectionentry {0}{2}{6}{18}{Loss function}}\headcommand {\beamer@subsectionpages {16}{17}}
+\headcommand {\slideentry {2}{6}{1}{18/18}{Loss function}{0}}
 \headcommand {\beamer@framepages {18}{18}}
-\headcommand {\beamer@subsectionentry {0}{2}{7}{19}{Optimizer and hyperparameter}}\headcommand {\beamer@subsectionpages {17}{18}}
-\headcommand {\slideentry {2}{7}{1}{19/19}{Optimizer and hyperparameter}{0}}
+\headcommand {\slideentry {2}{6}{2}{19/19}{Loss function}{0}}
 \headcommand {\beamer@framepages {19}{19}}
-\headcommand {\slideentry {2}{7}{2}{20/20}{Optimizer and hyperparameter}{0}}
+\headcommand {\beamer@subsectionentry {0}{2}{7}{20}{Optimizer and hyperparameter}}\headcommand {\beamer@subsectionpages {18}{19}}
+\headcommand {\slideentry {2}{7}{1}{20/20}{Optimizer and hyperparameter}{0}}
 \headcommand {\beamer@framepages {20}{20}}
-\headcommand {\sectionentry {3}{Dataset}{21}{Dataset}{0}}
-\headcommand {\beamer@sectionpages {7}{20}}
-\headcommand {\beamer@subsectionpages {19}{20}}
-\headcommand {\beamer@subsectionentry {0}{3}{1}{21}{Size of dataset}}\headcommand {\beamer@subsectionpages {21}{20}}
-\headcommand {\slideentry {3}{1}{1}{21/21}{Size of dataset}{0}}
+\headcommand {\slideentry {2}{7}{2}{21/21}{Optimizer and hyperparameter}{0}}
 \headcommand {\beamer@framepages {21}{21}}
-\headcommand {\slideentry {3}{1}{2}{22/22}{Size of dataset}{0}}
+\headcommand {\sectionentry {3}{Dataset}{22}{Dataset}{0}}
+\headcommand {\beamer@sectionpages {7}{21}}
+\headcommand {\beamer@subsectionpages {20}{21}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{22}{Size of dataset}}\headcommand {\beamer@subsectionpages {22}{21}}
+\headcommand {\slideentry {3}{1}{1}{22/22}{Size of dataset}{0}}
 \headcommand {\beamer@framepages {22}{22}}
-\headcommand {\beamer@subsectionentry {0}{3}{2}{23}{資料集來源}}\headcommand {\beamer@subsectionpages {21}{22}}
-\headcommand {\slideentry {3}{2}{1}{23/23}{資料集來源}{0}}
+\headcommand {\slideentry {3}{1}{2}{23/23}{Size of dataset}{0}}
 \headcommand {\beamer@framepages {23}{23}}
-\headcommand {\slideentry {3}{2}{2}{24/24}{資料集來源}{0}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{24}{資料集來源}}\headcommand {\beamer@subsectionpages {22}{23}}
+\headcommand {\slideentry {3}{2}{1}{24/24}{資料集來源}{0}}
 \headcommand {\beamer@framepages {24}{24}}
-\headcommand {\beamer@subsectionentry {0}{3}{3}{25}{訓練樣本數量}}\headcommand {\beamer@subsectionpages {23}{24}}
-\headcommand {\slideentry {3}{3}{1}{25/25}{訓練樣本數量}{0}}
+\headcommand {\slideentry {3}{2}{2}{25/25}{資料集來源}{0}}
 \headcommand {\beamer@framepages {25}{25}}
-\headcommand {\slideentry {3}{3}{2}{26/26}{訓練樣本數量}{0}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{26}{訓練樣本數量}}\headcommand {\beamer@subsectionpages {24}{25}}
+\headcommand {\slideentry {3}{3}{1}{26/26}{訓練樣本數量}{0}}
 \headcommand {\beamer@framepages {26}{26}}
-\headcommand {\beamer@subsectionentry {0}{3}{4}{27}{驗證樣本數量}}\headcommand {\beamer@subsectionpages {25}{26}}
-\headcommand {\slideentry {3}{4}{1}{27/27}{驗證樣本數量}{0}}
+\headcommand {\slideentry {3}{3}{2}{27/27}{訓練樣本數量}{0}}
 \headcommand {\beamer@framepages {27}{27}}
-\headcommand {\slideentry {3}{4}{2}{28/28}{驗證樣本數量}{0}}
+\headcommand {\beamer@subsectionentry {0}{3}{4}{28}{驗證樣本數量}}\headcommand {\beamer@subsectionpages {26}{27}}
+\headcommand {\slideentry {3}{4}{1}{28/28}{驗證樣本數量}{0}}
 \headcommand {\beamer@framepages {28}{28}}
-\headcommand {\beamer@subsectionentry {0}{3}{5}{29}{測試樣本數量}}\headcommand {\beamer@subsectionpages {27}{28}}
-\headcommand {\slideentry {3}{5}{1}{29/29}{測試樣本數量}{0}}
+\headcommand {\slideentry {3}{4}{2}{29/29}{驗證樣本數量}{0}}
 \headcommand {\beamer@framepages {29}{29}}
-\headcommand {\slideentry {3}{5}{2}{30/30}{測試樣本數量}{0}}
+\headcommand {\beamer@subsectionentry {0}{3}{5}{30}{測試樣本數量}}\headcommand {\beamer@subsectionpages {28}{29}}
+\headcommand {\slideentry {3}{5}{1}{30/30}{測試樣本數量}{0}}
 \headcommand {\beamer@framepages {30}{30}}
-\headcommand {\sectionentry {4}{Experimental Evaluation}{31}{Experimental Evaluation}{0}}
-\headcommand {\beamer@sectionpages {21}{30}}
-\headcommand {\beamer@subsectionpages {29}{30}}
-\headcommand {\beamer@subsectionentry {0}{4}{1}{31}{Experimental environment}}\headcommand {\beamer@subsectionpages {31}{30}}
-\headcommand {\slideentry {4}{1}{1}{31/31}{Experimental environment}{0}}
+\headcommand {\slideentry {3}{5}{2}{31/31}{測試樣本數量}{0}}
 \headcommand {\beamer@framepages {31}{31}}
-\headcommand {\slideentry {4}{1}{2}{32/32}{Experimental environment}{0}}
+\headcommand {\sectionentry {4}{Experimental Evaluation}{32}{Experimental Evaluation}{0}}
+\headcommand {\beamer@sectionpages {22}{31}}
+\headcommand {\beamer@subsectionpages {30}{31}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{32}{Experimental environment}}\headcommand {\beamer@subsectionpages {32}{31}}
+\headcommand {\slideentry {4}{1}{1}{32/32}{Experimental environment}{0}}
 \headcommand {\beamer@framepages {32}{32}}
-\headcommand {\beamer@subsectionentry {0}{4}{2}{33}{Epochs of training}}\headcommand {\beamer@subsectionpages {31}{32}}
-\headcommand {\slideentry {4}{2}{1}{33/33}{Epochs of training}{0}}
+\headcommand {\slideentry {4}{1}{2}{33/33}{Experimental environment}{0}}
 \headcommand {\beamer@framepages {33}{33}}
-\headcommand {\slideentry {4}{2}{2}{34/34}{Epochs of training}{0}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{34}{Epochs of training}}\headcommand {\beamer@subsectionpages {32}{33}}
+\headcommand {\slideentry {4}{2}{1}{34/34}{Epochs of training}{0}}
 \headcommand {\beamer@framepages {34}{34}}
-\headcommand {\beamer@subsectionentry {0}{4}{3}{35}{Qualitative and Quantitative evaluation}}\headcommand {\beamer@subsectionpages {33}{34}}
-\headcommand {\slideentry {4}{3}{1}{35/35}{Qualitative and Quantitative evaluation}{0}}
+\headcommand {\slideentry {4}{2}{2}{35/35}{Epochs of training}{0}}
 \headcommand {\beamer@framepages {35}{35}}
-\headcommand {\slideentry {4}{3}{2}{36/36}{Qualitative and Quantitative evaluation}{0}}
+\headcommand {\beamer@subsectionentry {0}{4}{3}{36}{Qualitative and Quantitative evaluation}}\headcommand {\beamer@subsectionpages {34}{35}}
+\headcommand {\slideentry {4}{3}{1}{36/36}{Qualitative and Quantitative evaluation}{0}}
 \headcommand {\beamer@framepages {36}{36}}
-\headcommand {\beamer@partpages {1}{36}}
-\headcommand {\beamer@subsectionpages {1}{36}}
-\headcommand {\beamer@sectionpages {1}{36}}
-\headcommand {\beamer@documentpages {36}}
-\headcommand {\def \inserttotalframenumber {36}}
+\headcommand {\slideentry {4}{3}{2}{37/37}{Qualitative and Quantitative evaluation}{0}}
+\headcommand {\beamer@framepages {37}{37}}
+\headcommand {\slideentry {4}{3}{3}{38/38}{Qualitative and Quantitative evaluation}{0}}
+\headcommand {\beamer@framepages {38}{38}}
+\headcommand {\slideentry {4}{3}{4}{39/39}{Qualitative and Quantitative evaluation}{0}}
+\headcommand {\beamer@framepages {39}{39}}
+\headcommand {\beamer@partpages {1}{39}}
+\headcommand {\beamer@subsectionpages {1}{39}}
+\headcommand {\beamer@sectionpages {1}{39}}
+\headcommand {\beamer@documentpages {39}}
+\headcommand {\def \inserttotalframenumber {39}}

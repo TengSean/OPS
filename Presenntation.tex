@@ -161,8 +161,19 @@
 		\includegraphics[width=5cm]{normalize.png}
 		\end{textblock}
 	}
-	
-	
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Methodology}{Input of model}.
+\vspace{-4.5cm}
+	\begin{itemize}
+	\item{
+		一個(32,32,3)圖片
+		\begin{textblock}{3}(1,1)
+		\includegraphics[width=5.25cm]{origin.jpg}
+		\includegraphics[width=5cm]{32_32_resize.jpg}
+		\end{textblock}
+	}
 	\end{itemize}
 \end{frame}
 
@@ -183,11 +194,15 @@
 \subsection{Layers of model}
 
 \begin{frame}{Methodology}{Layers of model}
+\vspace{-4.5cm}
 	\begin{itemize}
 	\item{
 		Dense121\\
 		GlobalAveragePooling2D(池化層)\\
 		激活函數(將輸出轉為機率)\\
+		\begin{textblock}{3}(1,1)
+		\includegraphics[width=10cm]{file_size_of_model.png}
+		\end{textblock}
 	}
 	\end{itemize}
 \end{frame}
@@ -342,7 +357,29 @@
 		\begin{textblock}{3}(1,-4)
 		\includegraphics[width=10cm]{sorce.png}
 		\end{textblock}
-	}
+	}	
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Experimental Evaluation}{Qualitative evaluationQualitative evaluation}
+	\begin{itemize}
+	\item{
+		%Qualitative evaluation
+		\begin{textblock}{3}(1,-4)
+		\includegraphics[width=10cm]{loss.jpg}
+		\end{textblock}
+	}	
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Experimental Evaluation}{Qualitative evaluationQualitative evaluation}
+	\begin{itemize}
+	\item{
+		%Qualitative evaluation
+		\begin{textblock}{3}(1,-4)
+		\includegraphics[width=10cm]{accuracy.jpg}
+		\end{textblock}
+	}	
 	\end{itemize}
 \end{frame}
 
