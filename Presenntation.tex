@@ -151,10 +151,15 @@
 
 \subsection{Input of model}
 
-\begin{frame}{Methodology}{Input of model}
+\begin{frame}{Methodology}{Input of model}.
+\vspace{-4.5cm}
 	\begin{itemize}
 	\item{
 		一個(32,32,3)圖片
+		\begin{textblock}{3}(1,1)
+		\includegraphics[width=5.5cm]{resize.png}
+		\includegraphics[width=5cm]{normalize.png}
+		\end{textblock}
 	}
 	
 	
@@ -164,9 +169,13 @@
 \subsection{Output of model}
 
 \begin{frame}{Methodology}{Output of model}
+\vspace{-4.5cm}
 	\begin{itemize}
 	\item{
 		輸出一個權重檔案，model.h5
+		\begin{textblock}{3}(1,1)
+		\includegraphics[width=10cm]{output.png}
+		\end{textblock}
 	}
 	\end{itemize}
 \end{frame}
@@ -176,9 +185,9 @@
 \begin{frame}{Methodology}{Layers of model}
 	\begin{itemize}
 	\item{
-		Dense121
-		GlobalAveragePooling2D(池化層)
-		激活函數(將輸出轉為機率)
+		Dense121\\
+		GlobalAveragePooling2D(池化層)\\
+		激活函數(將輸出轉為機率)\\
 	}
 	\end{itemize}
 \end{frame}
@@ -196,9 +205,12 @@
 \subsection{File size of model}
 
 \begin{frame}{Methodology}{File size of model}
+\vspace{-4.5cm}
 	\begin{itemize}
 	\item{
-		File size of model
+		\begin{textblock}{3}(1,1)
+		\includegraphics[width=10cm]{file_size_of_model.png}
+		\end{textblock}
 	}
 	\end{itemize}
 \end{frame}
@@ -219,7 +231,7 @@
 \begin{frame}{Methodology}{Optimizer and hyperparameter}
 	\begin{itemize}
 	\item{
-		Optimizer使用adam
+		Optimizer使用adam\\
 		沒有使用hyperparameter
 	}
 	\end{itemize}
@@ -229,20 +241,28 @@
 
 \subsection{Size of dataset}
 
-\begin{frame}{Dataset}{Optimizer and hyperparameter}
+\begin{frame}{Dataset}{資料集大小}
+\vspace{-4.5cm}
 	\begin{itemize}
 	\item{
 		kaggle 競賽提供的資料集43G
+		\begin{textblock}{3}(1,1)
+		\includegraphics[width=10cm]{dataset.png}
+		\end{textblock}
 	}
 	\end{itemize}
-\end{frame}v
+\end{frame}
 
 \subsection{資料集來源}
 
-\begin{frame}{Dataset}{Optimizer and hyperparameter}
+\begin{frame}{Dataset}{資料集來源}
+\vspace{-4.5cm}
 	\begin{itemize}
 	\item{
 		kaggle 競賽提供
+		\begin{textblock}{3}(1,1)
+		\includegraphics[width=10cm]{dataset.png}
+		\end{textblock}
 		%在一張圖片
 	}
 	\end{itemize}
@@ -250,30 +270,38 @@
 
 \subsection{訓練樣本數量}
 
-\begin{frame}{Methodology}{Optimizer and hyperparameter}
+\begin{frame}{Methodology}{訓練樣本數量}
+\vspace{-4.5cm}
 	\begin{itemize}
 	\item{
-		176543張圖片
+		130862張圖片
+		\begin{textblock}{3}(1,1)
+		\includegraphics[width=10cm]{data_split.png}
+		\end{textblock}
 	}
 	\end{itemize}
 \end{frame}
 
 \subsection{驗證樣本數量}
 
-\begin{frame}{Dataset}{Optimizer and hyperparameter}
+\begin{frame}{Dataset}{驗證樣本數量}
+\vspace{-4.5cm}
 	\begin{itemize}
 	\item{
-		19615圖片
+		65437張圖片
+		\begin{textblock}{3}(1,1)
+		\includegraphics[width=10cm]{data_split.png}
+		\end{textblock}
 	}
 	\end{itemize}
 \end{frame}
 
 \subsection{測試樣本數量}
 
-\begin{frame}{Dataset}{Optimizer and hyperparameter}
+\begin{frame}{Dataset}{測試樣本數量}
 	\begin{itemize}
 	\item{
-		153730圖片
+		153730張圖片
 	}
 	\end{itemize}
 \end{frame}
@@ -283,10 +311,14 @@
 \subsection{Experimental environment}
 
 \begin{frame}{Experimental Evaluation}{Experimental environment}
+\vspace{-4.5cm}
 	\begin{itemize}
 	\item{
-		kaggle kernal
-		13G ram
+		kaggle 競賽提供的kernel
+		\begin{textblock}{3}(1,1)
+		\includegraphics[width=10cm]{kernel.png}
+		\end{textblock}
+		
 	}
 	\end{itemize}
 \end{frame}

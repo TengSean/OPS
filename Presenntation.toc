@@ -2,22 +2,21 @@
 \beamer@sectionintoc {1}{Introduction}{3}{0}{1}
 \beamer@subsectionintoc {1}{1}{成員介紹}{3}{0}{1}
 \beamer@subsectionintoc {1}{2}{專題問題描述}{5}{0}{1}
-\beamer@sectionintoc {2}{Methodology}{8}{0}{2}
-\beamer@subsectionintoc {2}{1}{Input of model}{8}{0}{2}
+\beamer@sectionintoc {2}{Methodology}{7}{0}{2}
+\beamer@subsectionintoc {2}{1}{Input of model}{7}{0}{2}
 \beamer@subsectionintoc {2}{2}{Output of model}{9}{0}{2}
-\beamer@subsectionintoc {2}{3}{Layers of model}{10}{0}{2}
-\beamer@subsectionintoc {2}{4}{Model save}{11}{0}{2}
-\beamer@subsectionintoc {2}{5}{File size of model}{12}{0}{2}
-\beamer@subsectionintoc {2}{6}{Loss function}{13}{0}{2}
-\beamer@subsectionintoc {2}{7}{Optimizer and hyperparameter}{14}{0}{2}
-\beamer@sectionintoc {3}{Dataset}{15}{0}{3}
-\beamer@subsectionintoc {3}{1}{Size of dataset}{15}{0}{3}
-\beamer@subsectionintoc {3}{2}{資料集來源}{16}{0}{3}
-\beamer@subsectionintoc {3}{3}{訓練樣本數量}{17}{0}{3}
-\beamer@subsectionintoc {3}{4}{驗證樣本數量}{18}{0}{3}
-\beamer@subsectionintoc {3}{5}{測試樣本數量}{19}{0}{3}
-\beamer@sectionintoc {4}{Experimental Evaluation}{20}{0}{4}
-\beamer@subsectionintoc {4}{1}{Experimental environment}{20}{0}{4}
-\beamer@subsectionintoc {4}{2}{Epochs of training}{21}{0}{4}
-\beamer@subsectionintoc {4}{3}{Qualitative evaluation}{22}{0}{4}
-\beamer@subsectionintoc {4}{4}{Quantitative evaluation}{23}{0}{4}
+\beamer@subsectionintoc {2}{3}{Layers of model}{11}{0}{2}
+\beamer@subsectionintoc {2}{4}{Model save}{13}{0}{2}
+\beamer@subsectionintoc {2}{5}{File size of model}{15}{0}{2}
+\beamer@subsectionintoc {2}{6}{Loss function}{17}{0}{2}
+\beamer@subsectionintoc {2}{7}{Optimizer and hyperparameter}{19}{0}{2}
+\beamer@sectionintoc {3}{Dataset}{21}{0}{3}
+\beamer@subsectionintoc {3}{1}{Size of dataset}{21}{0}{3}
+\beamer@subsectionintoc {3}{2}{資料集來源}{23}{0}{3}
+\beamer@subsectionintoc {3}{3}{訓練樣本數量}{25}{0}{3}
+\beamer@subsectionintoc {3}{4}{驗證樣本數量}{27}{0}{3}
+\beamer@subsectionintoc {3}{5}{測試樣本數量}{29}{0}{3}
+\beamer@sectionintoc {4}{Experimental Evaluation}{31}{0}{4}
+\beamer@subsectionintoc {4}{1}{Experimental environment}{31}{0}{4}
+\beamer@subsectionintoc {4}{2}{Epochs of training}{33}{0}{4}
+\beamer@subsectionintoc {4}{3}{Qualitative and Quantitative evaluation}{35}{0}{4}
